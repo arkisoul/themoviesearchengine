@@ -1,18 +1,10 @@
 import axios from 'axios';
+import {type Login} from '../types/login';
+import {type Register} from '../types/register';
 
 // const axiosInstance = axios.create({
 //   baseURL: 'http://localhost:3000',
 // });
-
-type Login = {
-  email: string;
-  password: string;
-};
-type Register = {
-  email: string;
-  password: string;
-  name: string;
-};
 
 export const login = async (data: Login) => {
   try {
@@ -20,6 +12,7 @@ export const login = async (data: Login) => {
     return res.data;
   } catch (error) {
     console.error(`Error! login user ${error}`);
+    throw error;
   }
 };
 
@@ -29,5 +22,6 @@ export const register = async (data: Register) => {
     return res.data;
   } catch (error) {
     console.error(`Error! login user ${error}`);
+    throw error;
   }
 };

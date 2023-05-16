@@ -1,29 +1,67 @@
-import React from 'react';
-import {ScrollView, Text} from 'react-native';
+import React, {useState} from 'react';
+import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
 
-export const MoviesScreen = () => {
+import {searchMovies} from '../../../services/movies.service';
+import {MovieCard} from '../../../components/movie/Movie';
+import {Movie} from '../../../types/movie';
+
+export const MoviesScreen = ({navigation}) => {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const fetchMovies = async (query: string) => {
+    try {
+      const res: {page: number; results: Movie[]} = await searchMovies(query);
+      console.log('res', res);
+      setMovies(res.results);
+    } catch (error) {
+      console.error('Error! fetching movies', error);
+    }
+  };
+
+  const handleSearchTermChange = (text: string) => {
+    setSearchTerm(text);
+    if (text.trim().length >= 3) {
+      fetchMovies(text.trim());
+    } else {
+      setMovies([]);
+    }
+  };
+
+  const handleOnPress = (movieId: number) => {
+    navigation.navigate('MovieDetail', {movieId});
+  };
+
   return (
-    <ScrollView>
-      <Text>Movie 1</Text>
-      <Text>Movie 2</Text>
-      <Text>Movie 3</Text>
-      <Text>Movie 4</Text>
-      <Text>Movie 5</Text>
-      <Text>Movie 6</Text>
-      <Text>Movie 7</Text>
-      <Text>Movie 8</Text>
-      <Text>Movie 9</Text>
-      <Text>Movie 10</Text>
-      <Text>Movie 11</Text>
-      <Text>Movie 12</Text>
-      <Text>Movie 13</Text>
-      <Text>Movie 14</Text>
-      <Text>Movie 15</Text>
-      <Text>Movie 16</Text>
-      <Text>Movie 17</Text>
-      <Text>Movie 18</Text>
-      <Text>Movie 19</Text>
-      <Text>Movie 20</Text>
+    <ScrollView contentContainerStyle={styles.container}>
+      <TextInput
+        placeholder="Search..."
+        value={searchTerm}
+        onChangeText={handleSearchTermChange}
+        style={styles.search}
+      />
+      <View style={styles.movies}>
+        {movies.map((movie: Movie) => (
+          <MovieCard movie={movie} key={movie.id} onPress={handleOnPress} />
+        ))}
+      </View>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    gap: 20,
+    display: 'flex',
+  },
+  movies: {
+    gap: 10,
+  },
+  search: {
+    borderWidth: 1,
+    borderColor: '#dbdbdb',
+    padding: 8,
+    borderRadius: 8,
+  },
+});

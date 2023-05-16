@@ -1,4 +1,23 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "Johndoe@mailinator.com",
+      "password": "$2a$10$UyLQVi8COkbqYKmhNGa9E.z.oF5q2sZYaYrQ3obWqG8TBHRxrEmry",
+      "name": "John Doe",
+      "id": 1
+    },
+    {
+      "email": "janedoe@mailinator.com",
+      "password": "$2a$10$k2sW4.vr9Jre3gTYAHS9KOCqKPD.UewL9/HsdrOBW8zFUtNhRNu/y",
+      "name": "Jane Doe",
+      "id": 2
+    },
+    {
+      "email": "Jonas.doe@mailinator.com",
+      "password": "$2a$10$Z3mXUWtOZeaJZy33yTzJmOTM3t.YXE.jZu2fbxi4fdvsFXPkudcGO",
+      "name": "Jonas Doe",
+      "id": 3
+    }
+  ],
   "favmovies": []
 }
