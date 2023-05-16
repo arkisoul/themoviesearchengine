@@ -24,3 +24,15 @@ export const getMovieDetailById = async (movieId: number) => {
     throw error;
   }
 };
+
+export const markMovieAsFav = async (userId: number, movieId: number) => {
+  try {
+    const res = await axios.post('http://localhost:3000/favmovies', {
+      userId,
+      movieId,
+    });
+    return res.data;
+  } catch (error) {
+    console.error('Error saving fav movie', error);
+  }
+};

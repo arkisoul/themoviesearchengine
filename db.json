@@ -19,5 +19,21 @@
       "id": 3
     }
   ],
-  "favmovies": []
+  "favmovies": [
+    {
+      "userId": 3,
+      "movieId": 357138,
+      "id": 1
+    },
+    {
+      "userId": 3,
+      "movieId": 299536,
+      "id": 2
+    },
+    {
+      "userId": 3,
+      "movieId": 767,
+      "id": 3
+    }
+  ]
 }

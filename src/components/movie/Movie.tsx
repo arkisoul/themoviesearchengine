@@ -10,7 +10,7 @@ export const MovieCard = ({
   movie: Movie;
   onPress: (movieId: number) => void;
 }) => {
-  const imgUrl = `${IMAGE_BASE_PATH}/${movie.poster_path}`;
+  const imgUrl = `${IMAGE_BASE_PATH}/w185/${movie.poster_path}`;
 
   return (
     <Pressable onPress={() => onPress(movie.id)}>
@@ -27,8 +27,6 @@ export const MovieCard = ({
 const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
     borderWidth: 1,
     borderRadius: 8,
     shadowColor: '#000000',
@@ -47,12 +45,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   content: {
-    padding: 6,
+    padding: 10,
     flexBasis: '70%',
   },
   poster: {
     height: 100,
     width: 50,
     flexBasis: '30%',
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
   },
 });

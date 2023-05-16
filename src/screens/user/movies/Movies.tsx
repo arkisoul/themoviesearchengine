@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+  FlatList,
+  ListRenderItem,
+} from 'react-native';
 
 import {searchMovies} from '../../../services/movies.service';
 import {MovieCard} from '../../../components/movie/Movie';
@@ -12,7 +19,6 @@ export const MoviesScreen = ({navigation}) => {
   const fetchMovies = async (query: string) => {
     try {
       const res: {page: number; results: Movie[]} = await searchMovies(query);
-      console.log('res', res);
       setMovies(res.results);
     } catch (error) {
       console.error('Error! fetching movies', error);
@@ -32,20 +38,30 @@ export const MoviesScreen = ({navigation}) => {
     navigation.navigate('MovieDetail', {movieId});
   };
 
+  const renderMovie: ListRenderItem<Movie> = ({item}) => (
+    <MovieCard movie={item} key={item.id} onPress={handleOnPress} />
+  );
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <TextInput
         placeholder="Search..."
         value={searchTerm}
         onChangeText={handleSearchTermChange}
         style={styles.search}
       />
-      <View style={styles.movies}>
+      <FlatList
+        data={movies}
+        renderItem={renderMovie}
+        keyExtractor={item => String(item.id)}
+        contentContainerStyle={{gap: 20}}
+      />
+      {/* <View style={styles.movies}>
         {movies.map((movie: Movie) => (
           <MovieCard movie={movie} key={movie.id} onPress={handleOnPress} />
         ))}
-      </View>
-    </ScrollView>
+      </View> */}
+    </View>
   );
 };
 
