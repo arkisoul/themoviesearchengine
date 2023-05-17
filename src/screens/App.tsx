@@ -3,11 +3,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Provider} from 'react-redux';
+
 import {RegisterScreen} from './auth/register/Resiter';
 import {LoginScreen} from './auth/login/Login';
 import {MoviesScreen} from './user/movies/Movies';
 import {FavMoviesScreen} from './user/fav-movies/FavMovies';
 import {MovieDetailScreen} from './user/movie-detail/MovieDetail';
+import {store} from '../store/store';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,5 +44,9 @@ export const App = () => {
     );
   }
 
-  return <NavigationContainer>{routes}</NavigationContainer>;
+  return (
+    <NavigationContainer>
+      <Provider store={store}>{routes}</Provider>
+    </NavigationContainer>
+  );
 };

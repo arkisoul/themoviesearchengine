@@ -8,8 +8,8 @@ import {
   Pressable,
   Text,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
-import {searchMovies} from '../../../services/movies.service';
 import {MovieCard} from '../../../components/movie/Movie';
 import {Movie} from '../../../types/movie';
 
@@ -27,24 +27,18 @@ type MoviesScreenProps = MovieScreenNavigationProps;
 export const MoviesScreen: FunctionComponent<MoviesScreenProps> = ({
   navigation,
 }) => {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const dispatch = useDispatch();
+  const moviesState = useSelector(state => state.movies);
   const [searchTerm, setSearchTerm] = useState('');
 
   const fetchMovies = async (query: string) => {
-    try {
-      const res: {page: number; results: Movie[]} = await searchMovies(query);
-      setMovies(res.results);
-    } catch (error) {
-      console.error('Error! fetching movies', error);
-    }
+    dispatch({type: 'FETCH_MOVIES_SAGA', payload: {query}});
   };
 
   const handleSearchTermChange = (text: string) => {
     setSearchTerm(text);
     if (text.trim().length >= 3) {
       fetchMovies(text.trim());
-    } else {
-      setMovies([]);
     }
   };
 
@@ -70,7 +64,7 @@ export const MoviesScreen: FunctionComponent<MoviesScreenProps> = ({
         </Pressable>
       </View>
       <FlatList
-        data={movies}
+        data={moviesState.movies}
         renderItem={renderMovie}
         keyExtractor={item => String(item.id)}
         contentContainerStyle={{gap: 20}}

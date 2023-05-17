@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Text, Image, ScrollView, Pressable} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {
   getMovieDetailById,
@@ -11,21 +12,13 @@ import {Movie} from '../../../types/movie';
 import {IMAGE_BASE_PATH} from '../../../contants';
 
 export const MovieDetailScreen = ({route}) => {
-  const [movie, setMovie] = useState<Movie>({} as Movie);
+  const dispatch = useDispatch();
+  const moviesState = useSelector(state => state.movies);
   const {movieId} = route.params;
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      try {
-        const res = await getMovieDetailById(movieId);
-        console.log('MovieDetails', res);
-        setMovie(res);
-      } catch (error) {
-        console.error('Error fetching movie details', error);
-      }
-    };
-    fetchMovieDetails();
-  }, [movieId]);
+    dispatch({type: 'FETCH_MOVIE_DETAIL_SAGA', payload: {movieId}});
+  });
 
   const markFav = async () => {
     try {
@@ -41,14 +34,18 @@ export const MovieDetailScreen = ({route}) => {
     }
   };
 
+  const movie = moviesState.movieDetails[movieId];
+
   return (
     <ScrollView contentContainerStyle={{flex: 1}}>
-      <Image
-        source={{uri: `${IMAGE_BASE_PATH}/original/${movie.backdrop_path}`}}
-        resizeMode={'cover'}
-        style={{flex: 1}}
-      />
-      <MovieCard movie={movie} onPress={() => {}} />
+      {movie ? (
+        <Image
+          source={{uri: `${IMAGE_BASE_PATH}/original/${movie.backdrop_path}`}}
+          resizeMode={'cover'}
+          style={{flex: 1}}
+        />
+      ) : null}
+      {movie ? <MovieCard movie={movie} onPress={() => {}} /> : null}
       <Pressable
         onPress={markFav}
         style={{
