@@ -3,13 +3,12 @@ import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import {IMAGE_BASE_PATH} from '../../contants';
 import {Movie} from '../../types/movie';
 
-export const MovieCard = ({
-  movie,
-  onPress,
-}: {
+type MovieCardProps = {
   movie: Movie;
   onPress: (movieId: number) => void;
-}) => {
+};
+
+export const MovieCard = ({movie, onPress}: MovieCardProps) => {
   const imgUrl = `${IMAGE_BASE_PATH}/w185/${movie.poster_path}`;
 
   return (

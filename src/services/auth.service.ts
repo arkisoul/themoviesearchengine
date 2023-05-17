@@ -1,14 +1,36 @@
 import axios from 'axios';
-import {type Login} from '../types/login';
-import {type Register} from '../types/register';
+import {Login} from '../types/login';
+import {Register} from '../types/register';
 
+// interface IPerson {
+//   name: string;
+//   age: number;
+// }
+// class Person implements IPerson {
+//   name: string;
+//   age: number;
+// }
+// const p1: IPerson = new Person();
 // const axiosInstance = axios.create({
 //   baseURL: 'http://localhost:3000',
 // });
+type User = {
+  id: number;
+  name: string;
+  email: string;
+};
 
-export const login = async (data: Login) => {
+type LoginSuccess = {
+  accessToken: string;
+  user: User;
+};
+
+export const login = async (data: Login): Promise<LoginSuccess> => {
   try {
-    const res = await axios.post('http://localhost:3000/login', data);
+    const res = await axios.post<LoginSuccess>(
+      'http://localhost:3000/login',
+      data,
+    );
     return res.data;
   } catch (error) {
     console.error(`Error! login user ${error}`);

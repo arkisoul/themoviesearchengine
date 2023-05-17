@@ -1,21 +1,27 @@
 import React from 'react';
-import {ScrollView, Text} from 'react-native';
+import {View} from 'react-native';
+import SwipeableList from '../../../components/swipeableList/SwipeableList';
+
+const DATA = [
+  {key: '1. element'},
+  {key: '2. element'},
+  {key: '3. element'},
+  {key: '4. element'},
+  {key: '5. element'},
+  {key: '6. element'},
+  {key: '7. element'},
+  {key: '8. element'},
+  {key: '9. element'},
+  {key: '10. element'},
+  {key: '11. element'},
+  {key: '12. element'},
+  {key: '13. element'},
+];
 
 export const FavMoviesScreen = () => {
   return (
-    <ScrollView>
-      <Text>Fav Movie 1</Text>
-      <Text>Fav Movie 4</Text>
-      <Text>Fav Movie 5</Text>
-      <Text>Fav Movie 6</Text>
-      <Text>Fav Movie 8</Text>
-      <Text>Fav Movie 9</Text>
-      <Text>Fav Movie 11</Text>
-      <Text>Fav Movie 12</Text>
-      <Text>Fav Movie 15</Text>
-      <Text>Fav Movie 17</Text>
-      <Text>Fav Movie 18</Text>
-      <Text>Fav Movie 20</Text>
-    </ScrollView>
+    <View style={{flex: 1}}>
+      <SwipeableList style={{flex: 1}} data={DATA} />
+    </View>
   );
 };

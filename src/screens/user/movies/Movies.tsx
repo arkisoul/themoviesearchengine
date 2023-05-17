@@ -1,18 +1,32 @@
-import React, {useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {
-  ScrollView,
   StyleSheet,
   TextInput,
   View,
   FlatList,
   ListRenderItem,
+  Pressable,
+  Text,
 } from 'react-native';
 
 import {searchMovies} from '../../../services/movies.service';
 import {MovieCard} from '../../../components/movie/Movie';
 import {Movie} from '../../../types/movie';
 
-export const MoviesScreen = ({navigation}) => {
+type MovieScreenNavigationProps = {
+  navigation: any;
+};
+
+// type Props = {
+//   movieId: number;
+//   name: string;
+// };
+
+type MoviesScreenProps = MovieScreenNavigationProps;
+
+export const MoviesScreen: FunctionComponent<MoviesScreenProps> = ({
+  navigation,
+}) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -50,6 +64,11 @@ export const MoviesScreen = ({navigation}) => {
         onChangeText={handleSearchTermChange}
         style={styles.search}
       />
+      <View>
+        <Pressable onPress={() => navigation.navigate('FavMovies')}>
+          <Text>Fav Movies List</Text>
+        </Pressable>
+      </View>
       <FlatList
         data={movies}
         renderItem={renderMovie}

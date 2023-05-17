@@ -34,6 +34,11 @@
       "userId": 3,
       "movieId": 767,
       "id": 3
+    },
+    {
+      "userId": 3,
+      "movieId": 88534,
+      "id": 4
     }
   ]
 }
