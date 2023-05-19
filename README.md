@@ -27,3 +27,8 @@ function increment() {
 ```
 6. Thunk Function/async function
 7. Thunk Function creator/async function creator
+
+## Further References
+- [React Native Maps](https://www.freecodecamp.org/news/how-to-integrate-maps-in-react-native-using-react-native-maps-5745490fe055/)
+- React Native Push Notifications using [Firebase Package](https://rnfirebase.io), [Step by Step Guide](https://medium.com/@appdevguider/implementing-push-notifications-in-react-native-a-step-by-step-guide-6693c90078aa)
+- RN Build Release automation CI/CD with Fastlane [here](https://docs.fastlane.tools/getting-started/cross-platform/react-native/)
