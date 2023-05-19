@@ -27,6 +27,7 @@ type LoginSuccess = {
 
 export const login = async (data: Login): Promise<LoginSuccess> => {
   try {
+    console.log('login data', data);
     const res = await axios.post<LoginSuccess>(
       'http://localhost:3000/login',
       data,

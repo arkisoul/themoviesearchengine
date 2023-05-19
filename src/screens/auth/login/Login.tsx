@@ -1,11 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react';
 import {View, Text, TextInput, Pressable, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
 
 import {login} from '../../../services/auth.service';
 import {Login} from '../../../types/login';
+import {authActions} from '../../../app/auth/auth';
 
 export const LoginScreen = () => {
+  const dispatch = useDispatch();
   const [user, setUser] = useState<Login>({email: '', password: ''});
 
   const handleChange = (name: string, text: string) => {
@@ -16,10 +19,14 @@ export const LoginScreen = () => {
     try {
       const res = await login(user);
       console.log('Login successfully', res);
+      const {accessToken, user: userInfo} = res;
       AsyncStorage.multiSet([
-        ['@accessToken', res.accessToken],
-        ['@user', JSON.stringify(res.user)],
+        ['@accessToken', accessToken],
+        ['@user', JSON.stringify(userInfo)],
       ]);
+      console.log(accessToken, userInfo);
+      dispatch(authActions.setAccessToken({accessToken}));
+      dispatch(authActions.setUser({user: userInfo}));
       setUser({email: '', password: ''});
     } catch (error) {
       console.error('Error! while login', error);

@@ -2,6 +2,11 @@
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
     "rootDir": ".",
-    "types": ["./src/types"]
+    "types": ["./src/types"],
+    "strict": false,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true
   }
 }

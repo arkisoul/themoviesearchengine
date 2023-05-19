@@ -2,8 +2,9 @@
  * @format
  */
 
+import 'reflect-metadata';
 import {AppRegistry} from 'react-native';
-import {App} from './src/screens/App';
+import {RootComponent} from './src/screens';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => RootComponent);
